@@ -2,6 +2,7 @@ import matplotlib.pyplot as plt
 from skimage import color, data, img_as_float, io
 from ianus import adk
 
+
 def main():
     """ Main """
     # Get input
@@ -19,6 +20,7 @@ def main():
     adk.set_output("success", True)
     adk.set_file_output("tinted_image", "tinted.jpg")
     adk.finalize()
+
 
 if __name__ == "__main__":
     main()
