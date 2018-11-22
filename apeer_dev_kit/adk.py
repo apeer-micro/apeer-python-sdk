@@ -1,4 +1,4 @@
-from ianus import core
+from apeer_dev_kit import core
 
 _adk = core.core()
 
