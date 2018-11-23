@@ -6,9 +6,13 @@ from shutil import copyfile
 
 class _core:
     def __init__(self):
-        self._outputs = {}
-        self._wfe_output_params_file = ""
-        self._input_json = json.loads(os.environ['WFE_INPUT_JSON'])
+        try:
+            self._outputs = {}
+            self._wfe_output_params_file = ""
+            self._input_json = json.loads(os.environ['WFE_INPUT_JSON'])
+        except KeyError:
+            raise KeyError(
+                'Environment variable WFE_INPUT_JSON not found. Please add WFE_INPUT_JSON as an environment variale to get inputs')
 
     def _get_inputs(self):
         """ Get the inputs"""
@@ -18,8 +22,8 @@ class _core:
             self.inputs = Namespace(**self._input_json)
             return self.inputs
         except KeyError:
-            print(
-                "Environment variable WFE_INPUT_JSON not found. Please add WFE_INPUT_JSON as an environment variale. Example of WFE_INPUT_JSON: {\"WFE_output_params_file\":\"wfe_module_params_1_1.json\", \"red\":0, \"green\":0.5, \"blue\":0}")
+            raise KeyError(
+                'Environment variable WFE_INPUT_JSON not found. Please add WFE_INPUT_JSON as an environment variale to get inputs')
 
     def _set_output(self, key, value):
         self._outputs[key] = value
