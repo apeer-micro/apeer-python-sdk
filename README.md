@@ -6,10 +6,8 @@ Our **A**PEER Python S**DK** (ADK) is a Python library for reading inputs and wr
 
 ## Installation
 
-Make sure that you are in the same folder as ```setup.py```. Install the library using pip.
-
 ```shell
-$ pip install .
+$ pip install apeer_dev_kit
 ```
 
 ## How to Use

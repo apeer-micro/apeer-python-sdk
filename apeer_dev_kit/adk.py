@@ -1,6 +1,6 @@
-from apeer_dev_kit import core
+from apeer_dev_kit import _core
 
-_adk = core.core()
+_adk = _core._core()
 
 
 def get_inputs():

@@ -1,10 +1,10 @@
-import os
+﻿import os
 import json
 from argparse import Namespace
 from shutil import copyfile
 
 
-class core:
+class _core:
     def __init__(self):
         self._outputs = {}
         self._wfe_output_params_file = ""
