@@ -1,25 +1,45 @@
-IANUS
-========================
+# APEER Python SDK
 
-Installation
-------------
+## What it does
 
-Make sure that you are in the same folder as ```setup.py```.
-Execute this command to install the project:
+Our **A**PEER Python S**DK** (ADK) is a Python library for reading inputs and writing outputs of [APEER](https://www.apeer.com) modules. The ADK will take care of reading inputs from previous modules in APEER and writing your outputs in the correct format for the next module.
 
-```bash
+## Installation
+
+Make sure that you are in the same folder as ```setup.py```. Install the library using pip.
+
+```shell
 $ pip install .
 ```
 
-How to Use
------
+## How to Use
 
-- Import the library in your script using:
-```bash
-from ianus import adk
-```
+Your code (your_code.py) can be in it's seperate package and run totally independent of APEER if you use the following structure for `__main__`.
 
-- To Read inputs:
-```bash
-inputs = adk.get_inputs()
+```python
+#### apeer_main.py ####
+
+from apeer_dev_kit import adk
+import your_code
+
+if __name__ == "__main__":
+    inputs = adk.get_inputs()
+
+    outputs = your_code.run(inputs.input_image_path, inputs.red, inputs.green, inputs.blue)
+
+    adk.set_output("success", outputs.success)
+    adk.set_file_output("tinted_image", outputs.tinted_image)
+    adk.finalize()
+
+
+#### your_code.py #####
+
+def run(input_image_path, red, green, blue):
+
+    # your processing code goes here ...
+
+    # Make sure you return the outputs as a dictionary containing all output
+    # values as specified for your APEER module
+    return { "success": True, "tinted_image": output_file_path }
+
 ```
