@@ -37,7 +37,7 @@ class TestsCore(unittest.TestCase):
         self.assertFalse(hasattr(inputs, 'WFE_output_params_file'))
         self.assertEqual(len(vars(inputs)), 1)
 
-    def test_get_inputs_givenDecimel_isDeserialized(self):
+    def test_get_inputs_givenDecimal_isDeserialized(self):
         os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","red":0.2}'
         core = _core._core()
 
