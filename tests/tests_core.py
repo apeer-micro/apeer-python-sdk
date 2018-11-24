@@ -11,7 +11,7 @@ class TestsCore(unittest.TestCase):
         with self.assertRaises(KeyError):
             _core._core()
 
-    def test_init_givenNoInputJson_coreIsInitialized(self):
+    def test_init_givenEmptyInputJson_coreIsInitialized(self):
         os.environ["WFE_INPUT_JSON"] = "{}"
 
         core = _core._core()
@@ -27,6 +27,13 @@ class TestsCore(unittest.TestCase):
 
         self.assertTrue(core)
         self.assertEqual(core._input_json["WFE_output_params_file"], "param.json")
+    
+    def test_get_inputs_givenNoParamFileKey_throwsKeyErrorException(self):
+        os.environ["WFE_INPUT_JSON"] = '{"red":0.2,"input_image":"test.jpg"}'
+        core = _core._core()
+
+        with self.assertRaises(KeyError):
+            core._get_inputs()
 
     def test_get_inputs_givenInputJson_paramFileIsNotPartOfInputs(self):
         os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","red":0.2}'

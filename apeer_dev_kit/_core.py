@@ -23,7 +23,7 @@ class _core:
             return self.inputs
         except KeyError:
             raise KeyError(
-                'Environment variable WFE_INPUT_JSON not found. Please add WFE_INPUT_JSON as an environment variale to get inputs')
+                'Key WFE_output_params_file not found. Please add WFE_output_params_file in input json')
 
     def _set_output(self, key, value):
         self._outputs[key] = value
