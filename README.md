@@ -1,5 +1,7 @@
 # APEER Python SDK
 
+[![Build Status](https://travis-ci.com/apeer-micro/apeer-python-sdk.svg?branch=master)](https://travis-ci.com/apeer-micro/apeer-python-sdk)
+
 ## What it does
 
 Our **A**PEER Python S**DK** (ADK) is a Python library for reading inputs and writing outputs of [APEER](https://www.apeer.com) modules. The ADK will take care of reading inputs from previous modules in APEER and writing your outputs in the correct format for the next module.
