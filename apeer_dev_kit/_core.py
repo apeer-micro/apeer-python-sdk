@@ -25,6 +25,8 @@ class _core:
                 'Key WFE_output_params_file not found. Please add WFE_output_params_file in input json')
 
     def _set_output(self, key, value):
+        if (key is None) or (value is None):
+            raise TypeError("key or value cannot be None")
         self._outputs[key] = value
 
     def _set_file_output(self, key, filepath):
