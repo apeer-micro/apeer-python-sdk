@@ -7,12 +7,12 @@
 
 ## What it does
 
-Our **A**PEER Python S**DK** (ADK) is a Python library for reading inputs and writing outputs of [APEER](https://www.apeer.com) modules. The ADK will take care of reading inputs from previous modules in APEER and writing your outputs in the correct format for the next module.
+Our APEER Python SDK aka. **a**peer-**d**ev-**k**it (ADK) is a Python library for reading inputs and writing outputs of [APEER](https://www.apeer.com) modules. The ADK will take care of reading inputs from previous modules in APEER and writing your outputs in the correct format for the next module.
 
 ## Installation
 
 ```shell
-$ pip install <coming soon>
+$ pip install apeer-dev-kit
 ```
 
 ## How to Use
