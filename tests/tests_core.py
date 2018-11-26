@@ -41,8 +41,8 @@ class TestsCore(unittest.TestCase):
 
         inputs = core._get_inputs()
         
-        self.assertFalse(hasattr(inputs, 'WFE_output_params_file'))
-        self.assertEqual(len(vars(inputs)), 1)
+        self.assertFalse('WFE_output_params_file' in inputs)
+        self.assertEqual(len(inputs), 1)
 
     def test_get_inputs_givenDecimal_isDeserialized(self):
         os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","red":0.2}'
@@ -50,7 +50,7 @@ class TestsCore(unittest.TestCase):
 
         inputs = core._get_inputs()
         
-        self.assertEqual(inputs.red, 0.2)
+        self.assertEqual(inputs["red"], 0.2)
 
     def test_get_inputs_givenInteger_isDeserialized(self):
         os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","red":2}'
@@ -58,7 +58,7 @@ class TestsCore(unittest.TestCase):
 
         inputs = core._get_inputs()
         
-        self.assertEqual(inputs.red, 2)
+        self.assertEqual(inputs["red"], 2)
 
     def test_get_inputs_givenString_isDeserialized(self):
         os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","value":"testValue"}'
@@ -66,7 +66,7 @@ class TestsCore(unittest.TestCase):
 
         inputs = core._get_inputs()
         
-        self.assertEqual(inputs.value, "testValue")
+        self.assertEqual(inputs["value"], "testValue")
 
     def tearDown(self):
         if "WFE_INPUT_JSON" in os.environ:
