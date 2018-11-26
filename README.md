@@ -3,6 +3,7 @@
 [![Build Status](https://travis-ci.com/apeer-micro/apeer-python-sdk.svg?branch=master)](https://travis-ci.com/apeer-micro/apeer-python-sdk)
 ![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)
 ![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)
+[![PyPI Version](https://img.shields.io/pypi/v/apeer-dev-kit.svg)](https://pypi.org/project/apeer-dev-kit/)
 ![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)
 
 ## What it does
