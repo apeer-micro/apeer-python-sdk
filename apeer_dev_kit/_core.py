@@ -1,8 +1,7 @@
 ﻿import os
 import json
-from argparse import Namespace
-from shutil import copyfile
 
+from _utility import copyfile
 
 class _core:
     def __init__(self):
@@ -31,14 +30,23 @@ class _core:
 
     def _set_file_output(self, key, filepath):
         if isinstance(filepath, list):
+            dsts = []
             for f in filepath:
+                if(not f or f.isspace()):
+                    print("Empty filepath, skipping")
+                    continue
                 if(f.startswith("/output/")):
-                    dst = f
+                    dsts.append(f)
                 else:
                     dst = "/output/" + os.path.basename(f)
                     copyfile(f, dst)
-            self._outputs[key] = dst
+                    dsts.append(dst)
+            if(len(dsts) > 0):
+                self._outputs[key] = dsts
         else:
+            if(not filepath or filepath.isspace()):
+                print("Empty filepath, skipping")
+                return
             if(filepath.startswith("/output/")):
                 dst = filepath
             else:
