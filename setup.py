@@ -4,7 +4,7 @@ with open("README.md", "r") as fh:
     long_description = fh.read()
 
 setup(name='apeer-dev-kit',
-      version='1.0.2',
+      version='1.0.3',
       description='Development kit for creating modules on apeer',
       long_description=long_description,
       long_description_content_type="text/markdown",
