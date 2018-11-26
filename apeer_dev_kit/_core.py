@@ -7,6 +7,7 @@ from shutil import copyfile
 class _core:
     def __init__(self):
         try:
+            os.system('mkdir -p /output')
             self._outputs = {}
             self._wfe_output_params_file = ""
             self._input_json = json.loads(os.environ['WFE_INPUT_JSON'])
