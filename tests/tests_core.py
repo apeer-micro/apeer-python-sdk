@@ -76,7 +76,7 @@ class TestsCore(unittest.TestCase):
 
         inputs = core._get_inputs()
         
-        self.assertEqual(inputs.value, True)
+        self.assertEqual(inputs["value"], True)
 
     # _set_output
     def test_set_output_givenNoneKey_raisesTypeError(self):
