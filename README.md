@@ -25,13 +25,13 @@ Your code (your_code.py) can be in it's seperate package and run totally indepen
 from apeer_dev_kit import adk
 import your_code
 
-if __name__ == "__main__":
+if __name__ == '__main__':
     inputs = adk.get_inputs()
 
-    outputs = your_code.run(inputs.input_image_path, inputs.red, inputs.green, inputs.blue)
+    outputs = your_code.run(inputs['input_image_path'], inputs['red'], inputs['green'], inputs['blue'])
 
-    adk.set_output("success", outputs.success)
-    adk.set_file_output("tinted_image", outputs.tinted_image)
+    adk.set_output('success', outputs['success'])
+    adk.set_file_output('tinted_image', outputs['tinted_image'])
     adk.finalize()
 
 
@@ -43,6 +43,6 @@ def run(input_image_path, red, green, blue):
 
     # Make sure you return the outputs as a dictionary containing all output
     # values as specified for your APEER module
-    return { "success": True, "tinted_image": output_file_path }
+    return {'success': True, 'tinted_image': output_file_path}
 
 ```
