@@ -7,6 +7,7 @@ from apeer_dev_kit import _core
 
 class TestsCore(unittest.TestCase):
 
+    # __init__
     def test_init_givenNoEnvironmentVariable_coreIsNotInitialized(self):
         with self.assertRaises(KeyError):
             _core._core()
@@ -28,6 +29,7 @@ class TestsCore(unittest.TestCase):
         self.assertTrue(core)
         self.assertEqual(core._input_json['WFE_output_params_file'], 'param.json')
     
+    # _get_inputs
     def test_get_inputs_givenNoParamFileKey_throwsKeyErrorException(self):
         os.environ['WFE_INPUT_JSON'] = '{"red":0.2,"input_image":"test.jpg"}'
         core = _core._core()
@@ -67,6 +69,54 @@ class TestsCore(unittest.TestCase):
         inputs = core._get_inputs()
         
         self.assertEqual(inputs['value'], 'testValue')
+
+    def test_get_inputs_givenBoolean_isDeserialized(self):
+        os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","value":true}'
+        core = _core._core()
+
+        inputs = core._get_inputs()
+        
+        self.assertEqual(inputs["value"], True)
+
+    # _set_output
+    def test_set_output_givenNoneKey_raisesTypeError(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        with self.assertRaises(TypeError):
+            core._set_output(None, None)
+
+    def test_set_output_givenStringValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", "string")
+
+        self.assertEqual(core._outputs["test"], "string")
+
+    def test_set_output_givenDecimalValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", 0.2)
+
+        self.assertEqual(core._outputs["test"], 0.2)
+
+    def test_set_output_givenIntegerValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", 2)
+
+        self.assertEqual(core._outputs["test"], 2)
+
+    def test_set_output_givenBooleanValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", True)
+
+        self.assertEqual(core._outputs["test"], True)
 
     def tearDown(self):
         if 'WFE_INPUT_JSON' in os.environ:
