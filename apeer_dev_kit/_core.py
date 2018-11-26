@@ -19,8 +19,7 @@ class _core:
         try:
             self._wfe_output_params_file = self._input_json.pop(
                 'WFE_output_params_file')
-            self.inputs = Namespace(**self._input_json)
-            return self.inputs
+            return self._input_json
         except KeyError:
             raise KeyError(
                 'Key WFE_output_params_file not found. Please add WFE_output_params_file in input json')
