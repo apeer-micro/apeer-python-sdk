@@ -8,7 +8,10 @@ class _core:
     def __init__(self):
         try:
             if not os.path.exists('/output'):
-                os.mkdir('/output')
+                try:
+                    os.mkdir('/output')
+                except OSError as e:
+                    print(e)
             self._outputs = {}
             self._wfe_output_params_file = ''
             self._input_json = json.loads(os.environ['WFE_INPUT_JSON'])
