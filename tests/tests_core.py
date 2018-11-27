@@ -155,7 +155,6 @@ class TestsCore(unittest.TestCase):
         core._set_file_output("file", ["", " ", '   '])
 
         mock_shutil.copyfile.assert_not_called()
-        self.assertEqual(mock_shutil.copyfile.call_count, 0)
         self.assertEqual(len(core._outputs), 0)
 
     @mock.patch('apeer_dev_kit._utility.shutil')
