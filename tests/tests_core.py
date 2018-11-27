@@ -79,6 +79,14 @@ class TestsCore(unittest.TestCase):
         
         self.assertEqual(inputs["value"], True)
 
+    def test_get_inputs_givenList_isDeserialized(self):
+        os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","value":["one", "two"]}'
+        core = _core._core()
+
+        inputs = core._get_inputs()
+        
+        self.assertEqual(inputs["value"], ["one", "two"])
+
     # _set_output
     def test_set_output_givenNoneKey_raisesTypeError(self):
         os.environ["WFE_INPUT_JSON"] = '{}'
