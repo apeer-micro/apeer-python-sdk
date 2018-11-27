@@ -197,7 +197,6 @@ class TestsCore(unittest.TestCase):
         mock_shutil.copyfile.assert_has_calls([
             mock.call("file1.txt", "/output/file1.txt"),
             mock.call("file2.txt", "/output/file2.txt")])
-        self.assertEqual(mock_shutil.copyfile.call_count, 2)
         self.assertEqual(core._outputs["file"], ["/output/file1.txt", "/output/file2.txt"])
 
     def tearDown(self):
