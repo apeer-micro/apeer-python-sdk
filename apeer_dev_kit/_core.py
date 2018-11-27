@@ -1,7 +1,7 @@
 ﻿import os
 import json
 
-from _utility import copyfile
+from ._utility import copyfile
 
 class _core:
     def __init__(self):
