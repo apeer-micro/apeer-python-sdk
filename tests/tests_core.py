@@ -127,6 +127,14 @@ class TestsCore(unittest.TestCase):
 
         self.assertEqual(core._outputs["test"], True)
 
+    def test_set_output_givenListValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", ["test1", "test2"])
+
+        self.assertEqual(core._outputs["test"], ["test1", "test2"])
+
     # _set_file_output
     @mock.patch('apeer_dev_kit._utility.shutil')
     def test_set_file_output_givenEmptyFileName_FileNotCopied(self, mock_shutil):
