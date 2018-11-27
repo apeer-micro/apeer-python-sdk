@@ -1,4 +1,5 @@
 import unittest
+import mock
 import sys
 import os
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
@@ -78,6 +79,14 @@ class TestsCore(unittest.TestCase):
         
         self.assertEqual(inputs["value"], True)
 
+    def test_get_inputs_givenList_isDeserialized(self):
+        os.environ["WFE_INPUT_JSON"] = '{"WFE_output_params_file":"param.json","value":["one", "two"]}'
+        core = _core._core()
+
+        inputs = core._get_inputs()
+        
+        self.assertEqual(inputs["value"], ["one", "two"])
+
     # _set_output
     def test_set_output_givenNoneKey_raisesTypeError(self):
         os.environ["WFE_INPUT_JSON"] = '{}'
@@ -117,6 +126,78 @@ class TestsCore(unittest.TestCase):
         core._set_output("test", True)
 
         self.assertEqual(core._outputs["test"], True)
+
+    def test_set_output_givenListValue_correctlyAdded(self):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_output("test", ["test1", "test2"])
+
+        self.assertEqual(core._outputs["test"], ["test1", "test2"])
+
+    # _set_file_output
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenEmptyFileName_FileNotCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", "")
+
+        mock_shutil.copyfile.assert_not_called()
+        self.assertEqual(mock_shutil.copyfile.call_count, 0)
+        self.assertEqual(len(core._outputs), 0)
+
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenEmptyFileNameList_FileNotCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", ["", " ", '   '])
+
+        mock_shutil.copyfile.assert_not_called()
+        self.assertEqual(len(core._outputs), 0)
+
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenFileNotInOutputFolder_FileCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", "file.txt")
+
+        mock_shutil.copyfile.assert_called_with("file.txt", "/output/file.txt")
+        self.assertEqual(core._outputs["file"], "/output/file.txt")
+
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenFileInOutputFolder_FileNotCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", "/output/file.txt")
+
+        mock_shutil.copyfile.assert_not_called()
+        self.assertEqual(core._outputs["file"], "/output/file.txt")
+
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenFileListInOutputFolder_FileNotCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", ["/output/file1.txt", "/output/file2.txt"])
+
+        mock_shutil.copyfile.assert_not_called()
+        self.assertEqual(core._outputs["file"], ["/output/file1.txt", "/output/file2.txt"])
+
+    @mock.patch('apeer_dev_kit._utility.shutil')
+    def test_set_file_output_givenFileListNotInOutputFolder_FileCopied(self, mock_shutil):
+        os.environ["WFE_INPUT_JSON"] = '{}'
+        core = _core._core()
+
+        core._set_file_output("file", ["file1.txt", "file2.txt"])
+
+        mock_shutil.copyfile.assert_has_calls([
+            mock.call("file1.txt", "/output/file1.txt"),
+            mock.call("file2.txt", "/output/file2.txt")])
+        self.assertEqual(core._outputs["file"], ["/output/file1.txt", "/output/file2.txt"])
 
     def tearDown(self):
         if 'WFE_INPUT_JSON' in os.environ:
