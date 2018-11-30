@@ -48,7 +48,7 @@ def run(input_image_path, red, green, blue):
 
 ```
 
-## API:
+## API
 ### Getting Inputs:
 * `get_inputs()`: This methods returns a dictionary containing your inputs. The keys in the dictionary are defined in your module_specification file.
 ![](http://cadevelop.blob.core.windows.net/public/adk_github_wiki/inputs_spec.png)
