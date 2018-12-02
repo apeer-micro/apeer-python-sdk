@@ -51,6 +51,7 @@ def run(input_image_path, red, green, blue):
 ## API
 ### Getting Inputs:
 * `get_inputs()`: This methods returns a dictionary containing your inputs. The keys in the dictionary are defined in your module_specification file.
+
 ![](http://cadevelop.blob.core.windows.net/public/adk_github_wiki/inputs_spec.png)
 
 
@@ -59,10 +60,12 @@ After your done with processing in your code. You want to pass your output to th
 
 * `set_output`(): This method allows you to pass non-file output to the next module. 
 Example: `adk.set_output('success', True)`. The first argument is the key, which you find in module_specification file. The second argument is the value that you have calculated. You can also pass a list as value.
+
 ![](http://cadevelop.blob.core.windows.net/public/adk_github_wiki/output_bool.png)
 
 * `set_file_output()`: This method allows your to pass your file output to next module. 
 Example: `adk.set_file_output('tinted_image', 'my_image.jpg')`. The first argument is the key, which you will find in your module_specification file. he second argument is the filepath to your file. 
+
 ![](http://cadevelop.blob.core.windows.net/public/adk_github_wiki/output_file.png)
 
 If you have a list of files as output, you can simply pass the list of filepath to your files. `adk.set_file_output('output_images', ['image1.jpg', 'image2.jpg'])`
