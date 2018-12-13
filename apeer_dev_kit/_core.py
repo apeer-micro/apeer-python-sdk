@@ -1,4 +1,4 @@
-﻿import os
+import os
 import json
 import logging as log
 
