@@ -12,7 +12,7 @@ class _core:
             self._outputs = {}
             self._wfe_output_params_file = ''
             self._input_json = json.loads(os.environ['WFE_INPUT_JSON'])
-            log.info('Found environment variable WFE_INPUT_JSON to be {}'.format(self._input_json))
+            log.info('Found module\'s inputs to be {}'.format(self._input_json))
         except KeyError:
             message = 'Environment variable WFE_INPUT_JSON not found'
             log.error(message)
@@ -22,7 +22,7 @@ class _core:
         ''' Get the inputs'''
         try:
             self._wfe_output_params_file = '/output/' + self._input_json.pop('WFE_output_params_file')
-            log.info('Output params will be written to {}'.format(self._wfe_output_params_file))
+            log.info('Outputs will be written to {}'.format(self._wfe_output_params_file))
             return self._input_json
         except KeyError:
             message = 'Key WFE_output_params_file not found'
