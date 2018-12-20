@@ -1,10 +1,10 @@
 from setuptools import setup
 
-with open("README.md", "r") as fh:
+with open("README", "r") as fh:
     long_description = fh.read()
 
 setup(name='apeer-dev-kit',
-      version='1.0.7',
+      version='1.0.8',
       description='Development kit for creating modules on apeer',
       long_description=long_description,
       long_description_content_type="text/markdown",
