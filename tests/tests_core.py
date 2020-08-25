@@ -9,8 +9,8 @@ from apeer_dev_kit import _core
 class TestsCore(unittest.TestCase):
 
     # __init__
-    def test_init_givenNoEnvironmentVariable_coreIsNotInitialized(self):
-        with self.assertRaises(KeyError):
+    def test_init_givenNoEnvironmentVariableAndNoInputFile_coreIsNotInitialized(self):
+        with self.assertRaises(IOError):
             _core._core()
 
     def test_init_givenEmptyInputJson_coreIsInitialized(self):
