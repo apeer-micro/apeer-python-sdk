@@ -34,6 +34,10 @@ class _core:
             message = 'Input file {} not found'.format(self.wfe_input_file_name)
             log.error(message)
             raise IOError(message)
+        except AttributeError:
+            message = 'ADK not initialized'
+            log.error(message)
+            raise IOError(message)
 
     def _get_inputs(self):
         ''' Get the inputs'''
