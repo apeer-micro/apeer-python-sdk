@@ -6,7 +6,6 @@ from ._utility import copyfile
 
 class _core:
     WFE_INPUT_ENV_VARIABLE = 'WFE_INPUT_JSON'
-    WFE_INPUT_FILE_NAME = '/params/WFE_input_params.json'
 
     def __init__(self):
         log.basicConfig(format='%(asctime)s [ADK:%(levelname)s] %(message)s', level=log.INFO, datefmt='%Y-%m-%d %H:%M:%S')
@@ -15,6 +14,13 @@ class _core:
         self._wfe_output_params_file = ''
         self._input_json = self._read_inputs()
         log.info('Found module\'s inputs to be {}'.format(self._input_json))
+        if os.name == 'nt':
+            self.output_dir = 'C:\\output\\'
+            self.wfe_input_file_name = 'C:\\params\\WFE_input_params.json'
+        else:
+            self.output_dir = '/output/'
+            self.wfe_input_file_name = '/params/WFE_input_params.json'
+
 
     def _read_inputs(self):
         ''' Read inputs either from file or from environment variable'''
@@ -22,17 +28,21 @@ class _core:
             if self.WFE_INPUT_ENV_VARIABLE in os.environ:
                 return json.loads(os.environ[self.WFE_INPUT_ENV_VARIABLE])
             else:
-                with open(self.WFE_INPUT_FILE_NAME, 'r') as input_file:
+                with open(self.wfe_input_file_name, 'r') as input_file:
                     return json.load(input_file)
         except IOError:
-            message = 'Input file {} not found'.format(self.WFE_INPUT_FILE_NAME)
+            message = 'Input file {} not found'.format(self.wfe_input_file_name)
+            log.error(message)
+            raise IOError(message)
+        except AttributeError:
+            message = 'ADK not initialized'
             log.error(message)
             raise IOError(message)
 
     def _get_inputs(self):
         ''' Get the inputs'''
         try:
-            self._wfe_output_params_file = '/output/' + self._input_json.pop('WFE_output_params_file')
+            self._wfe_output_params_file = self.output_dir + self._input_json.pop('WFE_output_params_file')
             log.info('Outputs will be written to {}'.format(self._wfe_output_params_file))
             return self._input_json
         except KeyError:
@@ -55,10 +65,10 @@ class _core:
                 if(not f or f.isspace()):
                     log.warn('Empty filepath, skipping')
                     continue
-                if(f.startswith('/output/')):
+                if(f.startswith(self.output_dir)):
                     dsts.append(f)
                 else:
-                    dst = '/output/' + os.path.basename(f)
+                    dst = self.output_dir + os.path.basename(f)
                     log.info('Copying file "{}" to "{}"'.format(os.path.basename(f), dst))
                     copyfile(f, dst)
                     dsts.append(dst)
@@ -68,10 +78,10 @@ class _core:
             if(not filepath or filepath.isspace()):
                 log.warn('Empty filepath, skipping')
                 return
-            if(filepath.startswith('/output/')):
+            if(filepath.startswith(self.output_dir)):
                 dst = filepath
             else:
-                dst = '/output/' + os.path.basename(filepath)
+                dst = self.output_dir + os.path.basename(filepath)
                 log.info('Copying file "{}" to "{}"'.format(os.path.basename(filepath), dst))
                 copyfile(filepath, dst)
             self._set_output(key, dst)
