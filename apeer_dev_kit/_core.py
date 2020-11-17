@@ -12,15 +12,14 @@ class _core:
         log.info('Initializing')
         self._outputs = {}
         self._wfe_output_params_file = ''
-        self._input_json = self._read_inputs()
-        log.info('Found module\'s inputs to be {}'.format(self._input_json))
         if os.name == 'nt':
             self.output_dir = 'C:\\output\\'
             self.wfe_input_file_name = 'C:\\params\\WFE_input_params.json'
         else:
             self.output_dir = '/output/'
             self.wfe_input_file_name = '/params/WFE_input_params.json'
-
+        self._input_json = self._read_inputs()
+        log.info('Found module\'s inputs to be {}'.format(self._input_json))
 
     def _read_inputs(self):
         ''' Read inputs either from file or from environment variable'''
