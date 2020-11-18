@@ -1,7 +1,8 @@
 from setuptools import setup
+from apeer_dev_kit import __version__
 
 setup(name='apeer-dev-kit',
-      version='1.2.1',
+      version=__version__,
       description='Development kit for creating modules on apeer',
       url='https://github.com/apeer-micro/apeer-python-sdk',
       author='apeer-micro',

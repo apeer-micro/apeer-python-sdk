@@ -1,7 +1,9 @@
 import os
 import json
 import logging as log
+import pkg_resources
 
+from apeer_dev_kit import __version__
 from ._utility import copyfile
 
 class _core:
@@ -9,7 +11,7 @@ class _core:
 
     def __init__(self):
         log.basicConfig(format='%(asctime)s [ADK:%(levelname)s] %(message)s', level=log.INFO, datefmt='%Y-%m-%d %H:%M:%S')
-        log.info('Initializing')
+        log.info('Initializing ADK v' + __version__)
         self._outputs = {}
         self._wfe_output_params_file = ''
         if os.name == 'nt':
