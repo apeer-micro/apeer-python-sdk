@@ -1,7 +1,6 @@
 import os
 import json
 import logging as log
-import pkg_resources
 
 from apeer_dev_kit import __version__
 from ._utility import copyfile
@@ -64,7 +63,7 @@ class _core:
             dsts = []
             for f in filepath:
                 if(not f or f.isspace()):
-                    log.warn('Empty filepath, skipping')
+                    log.warning('Empty filepath, skipping')
                     continue
                 if(f.startswith(self.output_dir)):
                     dsts.append(f)
@@ -77,7 +76,7 @@ class _core:
                 self._set_output(key, dsts)
         else:
             if(not filepath or filepath.isspace()):
-                log.warn('Empty filepath, skipping')
+                log.warning('Empty filepath, skipping')
                 return
             if(filepath.startswith(self.output_dir)):
                 dst = filepath
