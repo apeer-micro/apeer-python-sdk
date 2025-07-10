@@ -21,8 +21,8 @@ jobs:
     name: Dry-Run Build & Check
     runs-on: ubuntu-latest
 
-    # Only on PRs or manual; skip on 'push to main'
-    if: ${{ github.event_name == 'pull_request' || github.event_name == 'workflow_dispatch' }}
+    # Only on PRs skip on 'push to main'
+    if: github.event_name != 'push'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -54,7 +54,7 @@ jobs:
     needs: dry-run
 
     # Only fire on the push-to-main that completes the PR
-    if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/main' }}
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
