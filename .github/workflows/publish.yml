@@ -21,8 +21,8 @@ jobs:
     name: Dry-Run Build & Check
     runs-on: ubuntu-latest
 
-    # Only on PRs skip on 'push to main'
-    if: github.event_name != 'push'
+    # Allow dry-run on all events except when pushing to main
+    if: github.event_name != 'push' || github.ref != 'refs/heads/main'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
