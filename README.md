@@ -1,8 +1,11 @@
 # APEER Python SDK
 
-[![Build Status](https://travis-ci.com/apeer-micro/apeer-python-sdk.svg?branch=master)](https://travis-ci.com/apeer-micro/apeer-python-sdk)
-[![Python 2.7](https://img.shields.io/badge/python-2.7-blue.svg)](https://www.python.org/download/releases/2.7/)
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Build & Publish to PyPI](https://github.com/apeer-micro/apeer-python-sdk/actions/workflows/publish.yml/badge.svg?branch=master)](https://github.com/apeer-micro/apeer-python-sdk/actions/workflows/publish.yml)
+[![Python 3.8](https://img.shields.io/badge/python-3.8-blue.svg)](https://www.python.org/downloads/release/python-380/)
+[![Python 3.9](https://img.shields.io/badge/python-3.9-blue.svg)](https://www.python.org/downloads/release/python-390/)
+[![Python 3.10](https://img.shields.io/badge/python-3.10-blue.svg)](https://www.python.org/downloads/release/python-3100/)
+[![Python 3.11](https://img.shields.io/badge/python-3.11-blue.svg)](https://www.python.org/downloads/release/python-3110/)
+[![Python 3.12](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/downloads/release/python-3120/)
 [![PyPI Version](https://img.shields.io/pypi/v/apeer-dev-kit.svg)](https://pypi.org/project/apeer-dev-kit/)
 [![License](https://img.shields.io/badge/Code%20License-MIT-blue.svg)](https://github.com/apeer-micro/apeer-python-sdk/blob/master/LICENSE.txt)
 
