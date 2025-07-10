@@ -1,5 +1,17 @@
+import io, os
 from setuptools import setup
-from apeer_dev_kit import __version__
+
+# read __version__ without importing the package
+def read_version():
+    here = os.path.abspath(os.path.dirname(__file__))
+    init_py = os.path.join(here, "apeer_dev_kit", "__init__.py")
+    for line in io.open(init_py, encoding="utf-8"):
+        if line.startswith("__version__"):
+            # __version__ = "1.3.0"
+            return line.split("=", 1)[1].strip().strip('"').strip("'")
+    raise RuntimeError("Unable to find __version__ in apeer_dev_kit/__init__.py")
+
+__version__ = read_version()
 
 setup(name='apeer-dev-kit',
       version=__version__,
@@ -7,8 +19,16 @@ setup(name='apeer-dev-kit',
       url='https://github.com/apeer-micro/apeer-python-sdk',
       author='apeer-micro',
       packages=['apeer_dev_kit'],
+      python_requires='>=3.8, <3.14',
+      install_requires=[],
       classifiers=[
-        "Programming Language :: Python :: 2",
+        "Programming Language :: Python :: 3",
+        "Programming Language :: Python :: 3.8",
+        "Programming Language :: Python :: 3.9",
+        "Programming Language :: Python :: 3.10",
+        "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
         "License :: OSI Approved :: MIT License",
         "Operating System :: OS Independent",
     ],
