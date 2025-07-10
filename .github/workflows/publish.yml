@@ -51,6 +51,7 @@ jobs:
   publish:
     name: Publish to PyPI
     runs-on: ubuntu-latest
+    environment: release
 
     # Only fire on the push-to-master that completes the PR
     if: ${{ github.event_name == 'push' && github.ref == 'refs/heads/master' }}
