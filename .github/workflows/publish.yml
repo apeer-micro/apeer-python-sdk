@@ -4,12 +4,12 @@ on:
   # Dry-run triggers
   pull_request:
     branches:
-      - main
+      - master
   workflow_dispatch:
   # Publish trigger: only when the PR merge commits are pushed to main
   push:
     branches:
-      - main
+      - master
 
 permissions:
   contents: read       # for checkout
@@ -21,8 +21,8 @@ jobs:
     name: Dry-Run Build & Check
     runs-on: ubuntu-latest
 
-    # Allow dry-run on all events except when pushing to main
-    if: github.event_name != 'push' || github.ref != 'refs/heads/main'
+    # Allow dry-run on all events except when pushing to master
+    if: github.event_name != 'push' || github.ref != 'refs/heads/master'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
@@ -53,8 +53,8 @@ jobs:
     runs-on: ubuntu-latest
     needs: dry-run
 
-    # Only fire on the push-to-main that completes the PR
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    # Only fire on the push-to-master that completes the PR
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Check out code
         uses: actions/checkout@v4
